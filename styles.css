@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-/* Fullscreen Background (Fix Gradient Issue) */
+/* Fullscreen Background */
 body {
   font-family: "Gochi Hand", cursive;
   background: linear-gradient(180deg, #ffebf2, #ffdce5);
@@ -15,10 +15,10 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  overflow: hidden; /* Prevents extra scrolling */
+  overflow: hidden; /* Prevents scrolling */
 }
 
-/* Large Card to Center Content */
+/* Large Card to Center Everything */
 .container {
   background: white;
   width: 90%;
@@ -27,6 +27,13 @@ body {
   border-radius: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+}
+
+/* Image Fix */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
 }
 
 /* Start Screen */
@@ -40,26 +47,69 @@ p {
   margin-bottom: 20px;
 }
 
-/* Buttons */
+/* General Button Styling */
 button {
   width: 100%;
   max-width: 400px;
   padding: 18px;
   font-size: 22px;
   font-weight: bold;
-  background-color: #5e2a6c; /* Deep Violet */
-  color: white;
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
-button:hover {
+/* Start & Next Buttons (Deep Violet) */
+#start-btn,
+#next-btn {
+  background-color: #5e2a6c;
+  color: white;
+}
+
+#start-btn:hover,
+#next-btn:hover {
   background-color: #7a3b8c;
+  transform: scale(1.05);
+}
+
+/* Disabled Next Button */
+#next-btn.disabled-btn {
+  background-color: #8b5a94;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Answer Choices (Off-White) */
+.choice-btn {
+  background-color: #fdf6f9;
+  color: #5e4b56;
+  border: 2px solid #e3c3d6;
+  margin: 12px 0; /* Add space between answers */
+}
+
+.choice-btn:hover {
+  background-color: #f5e4ea;
+  transform: scale(1.03);
+}
+
+/* Selected Answer */
+.choice-btn.selected {
+  background-color: #af6ccf;
+  color: white;
+  transform: scale(1.05);
 }
 
 /* Hide Elements Initially */
 .hidden {
   display: none !important;
+}
+
+#flower-image {
+  width: 80%;
+  max-width: 300px; /* Prevents oversized images */
+  height: auto;
+  border-radius: 15px;
+  display: block;
+  margin: 0 auto; /* Centering */
 }

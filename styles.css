@@ -113,3 +113,129 @@ button {
   display: block;
   margin: 0 auto; /* Centering */
 }
+
+/* 🌸 Result Page Layout - Smaller & More Compact */
+#result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+  max-width: 400px; /* Smaller max width */
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+  margin: auto; /* Centering */
+}
+
+/* 🌷 Result Image - Smaller */
+#flower-image {
+  width: 50%;
+  max-width: 150px; /* Keeps it small */
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* 🌼 Result Title */
+#result-container h2 {
+  font-size: 18px; /* Smaller title */
+  color: #5e4b56;
+  margin-bottom: 5px;
+}
+
+/* 🌿 Answer Box */
+.answer-box {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  font-size: 14px; /* Smaller text */
+  background-color: #fdf6f9;
+  color: #5e4b56;
+  border: 1px solid #e3c3d6;
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+  margin-bottom: 5px;
+}
+
+.answer-box:hover {
+  background-color: #f5e4ea;
+  transform: scale(1.02);
+}
+
+/* 🌼 Delivery Input Fields */
+#flower-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px; /* Smaller input */
+  border-radius: 6px;
+  border: 1px solid #e3c3d6;
+  text-align: center;
+}
+
+/* 💌 Submit Button */
+#flower-form button {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px; /* Smaller button */
+  background-color: #5e2a6c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  margin-top: 5px;
+}
+
+#flower-form button:hover {
+  background-color: #7a3b8c;
+  transform: scale(1.03);
+}
+
+/* 📱 Mobile Responsiveness - Extra Compact */
+@media (max-width: 600px) {
+  #result-container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  #flower-image {
+    width: 40%;
+    max-width: 130px;
+  }
+
+  #result-container h2 {
+    font-size: 16px;
+  }
+
+  .answer-box {
+    max-width: 85%;
+    font-size: 13px;
+    padding: 6px;
+  }
+
+  #flower-form {
+    max-width: 85%;
+  }
+
+  input {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  #flower-form button {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

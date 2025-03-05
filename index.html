@@ -3,65 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🌸 Flower Quiz 🌸</title>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap"
-    />
+    <title>Your Flower Persona</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
       <!-- 🌸 Start Screen -->
-      <div id="start-screen">
+      <div id="start-screen" class="active">
         <img
-          src="images/start_screen.png"
-          alt="Start Screen"
-          style="width: 100%; border-radius: 15px"
+          id="start-illustration"
+          src="images/start-illustration.png"
+          alt="Start Illustration"
         />
-        <h1>🌷 Welcome to the Flower Personality Quiz! 🌷</h1>
-        <p>Find out which flower represents your personality best!</p>
-        <button id="start-btn">Let's plant some flowers!</button>
+        <h1>Your Flower Persona Awaits!</h1>
+        <p>Which flower best matches your vibe?</p>
+        <button id="start-btn">Take the Quiz</button>
       </div>
 
       <!-- 🌿 Quiz Section -->
-      <div id="quiz-container" class="hidden">
+      <div id="quiz-container">
+        <img
+          id="question-image"
+          src=""
+          alt="Question Image"
+          style="display: none"
+        />
         <h2 id="question-text"></h2>
         <div id="choices-container"></div>
-        <button id="next-btn" disabled>Next ➡️</button>
       </div>
 
       <!-- 🌼 Result Section -->
-      <div id="result-container" class="hidden">
-        <h2>You are a... 🌼</h2>
-        <img id="flower-image" src="" alt="Flower Image" />
-        <h3 id="flower-name"></h3>
-        <p>
-          If someone (*maybe a secret admirer*) wanted to send you flowers,
-          where would be the best place? 🌸
-        </p>
+      <div id="result-container">
+        <h2 id="result-text"></h2>
+        <img id="flower-image" src="" alt="Flower Result Image" />
+        <p>Where should your admirer send the flowers?</p>
         <form id="flower-form">
-          <label for="address">📍 Where should your flower be delivered?</label>
           <input
             type="text"
             id="address"
-            name="address"
-            placeholder="Enter your address or location"
+            placeholder="Enter your delivery location"
             required
           />
-          <label for="time">⏰ What time works best?</label>
           <input
             type="text"
             id="time"
-            name="time"
-            placeholder="Morning, Afternoon, Evening?"
+            placeholder="Morning confession? Midnight surprise?"
             required
           />
-          <button type="submit">Submit 💌</button>
+          <button type="submit">Get Your Flowers!</button>
         </form>
-        <p id="thank-you-message" class="hidden">
-          Thank you for taking the quiz! 🌷✨
-        </p>
+        <p>Thanks for playing!</p>
       </div>
     </div>
 

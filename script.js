@@ -15,12 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let questionIndex = 0;
 
-  // 🌸 Validate Phone Number
-  function validatePhoneNumber(phone) {
-    const phoneRegex = /^\+?\d{10,15}$/;
-    return phoneRegex.test(phone);
-  }
-
   // 🌷 Handle Form Submission
   document
     .getElementById("flower-form")
@@ -37,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Send data to Google Sheets or Firebase
+      // Send data to Google Sheets
       sendToDatabase(address, time, phoneNumber);
 
       // Show thank you screen
@@ -48,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 🌷 Send Data to Google Sheets
   function sendToDatabase(address, time, phoneNumber) {
     fetch(
-      "https://script.google.com/macros/s/AKfycbzk5fChtb4oCHKN-fM_lvqTVbO3EwuRnex0_rGEE36K29YoYr_E3W9c3fU1x4Ad8voJ/exec",
+      "https://script.google.com/macros/s/AKfycbzWTYtujx_cSb6PxXtkbiXEyYPg-svZGjwD9TzZ7v_M19x94fSxQ4jHFsk7jfMq1YQx/exec",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,6 +56,12 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.text())
       .then((data) => console.log("Success:", data))
       .catch((error) => console.error("Error:", error));
+  }
+
+  // 🌸 Validate Phone Number
+  function validatePhoneNumber(phone) {
+    const phoneRegex = /^\+?\d{10,15}$/;
+    return phoneRegex.test(phone);
   }
 
   // 🔄 Restart Quiz

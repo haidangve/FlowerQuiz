@@ -120,12 +120,12 @@ button {
 
 /* 🌷 Result Image */
 #flower-image {
-  width: 60%;
-  max-width: 170px;
+  width: 80%; /* Increased from 60% */
+  max-width: 250px; /* Increased from 170px */
   height: auto;
   border-radius: 12px;
   display: block;
-  margin-bottom: 15px;
+  margin: 25px;
 }
 
 /* 🌸 Result Form Container */
@@ -226,7 +226,8 @@ button {
   }
 
   #flower-image {
-    max-width: 140px;
+    margin: 25px;
+    max-width: 200px; /* increased for mobile*/
   }
 
   #flower-form {

@@ -31,18 +31,14 @@ body {
 #start-screen,
 #quiz-container,
 #result-container {
-  display: flex;
-  width: 100%;
-  max-width: 550px;
-  margin: auto;
-}
-
-/* 🌼 Make Active Section Visible */
-.active {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.active {
+  display: flex;
 }
 
 /* 🎀 Title Styling */
@@ -56,20 +52,25 @@ p {
   margin-bottom: 20px;
 }
 
+/* 🌸 Start Illustration */
+#start-illustration {
+  max-width: 250px;
+  margin-bottom: 15px;
+}
+
 /* 🎨 General Button Styling */
 button {
   width: 100%;
   max-width: 400px;
-  padding: 18px;
-  font-size: 22px;
+  padding: 16px;
+  font-size: 20px;
   font-weight: bold;
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
-/* 💜 Start & Next Buttons */
 #start-btn {
   background-color: #8b3f63;
   color: white;
@@ -77,24 +78,12 @@ button {
 
 #start-btn:hover {
   background-color: #6b2445;
-  transform: scale(1.05);
 }
 
-#next-btn {
-  background-color: #7e5986;
-  color: white;
-}
-
-#next-btn:hover {
-  background-color: #62456a;
-  transform: scale(1.05);
-}
-
-/* 🔒 Disabled Next Button */
-#next-btn:disabled {
-  background-color: #c9a3b6;
-  cursor: not-allowed;
-  transform: none;
+/* 🌸 Question Image */
+#question-image {
+  max-width: 250px;
+  margin-bottom: 15px;
 }
 
 /* 🌸 Answer Choices */
@@ -102,40 +91,22 @@ button {
   background-color: #fdf6f9;
   color: #5e4b56;
   border: 2px solid #e3c3d6;
-  margin: 12px 0;
+  margin: 10px 0;
   padding: 15px;
   width: 100%;
   max-width: 400px;
   border-radius: 12px;
-  transition: 0.3s ease-in-out;
   text-align: left;
+  transition: 0.2s ease-in-out;
 }
 
 .choice-btn:hover {
   background-color: #f5e4ea;
-  transform: scale(1.03);
 }
 
-/* 🎯 Selected Answer */
 .choice-btn.selected {
   background-color: #af6ccf;
   color: white;
-  transform: scale(1.05);
-}
-
-/* 🏆 RESULT PAGE */
-#result-container {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  max-width: 550px;
-  padding: 30px;
-  background: white;
-  border-radius: 18px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
 }
 
 /* 🌷 Result Image */
@@ -166,32 +137,19 @@ input {
   border: 2px solid #e3c3d6;
   text-align: left;
   background: #fff;
-  transition: 0.3s ease-in-out;
 }
 
 input:focus {
   border-color: #af6ccf;
   outline: none;
-  box-shadow: 0px 0px 5px rgba(175, 108, 207, 0.3);
 }
 
 /* 💌 Submit Button */
 #flower-form button {
-  width: 100%;
-  padding: 14px;
-  font-size: 20px;
-  font-weight: bold;
   background-color: #8b3f63;
   color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-  margin-top: 15px;
-  text-transform: uppercase;
 }
 
 #flower-form button:hover {
   background-color: #7a3b8c;
-  transform: scale(1.04);
 }

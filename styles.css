@@ -16,6 +16,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   overflow-y: auto;
+  padding: 20px;
 }
 
 /* 🌺 Main Container */
@@ -28,128 +29,207 @@ body {
 }
 
 /* 🔥 Hide All Sections Initially */
-#start-screen,
 #quiz-container,
-#result-container {
+#result-container,
+#thank-you-screen {
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.active {
+#start-screen {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🌸 Start & Thank You Illustration */
+#start-illustration {
+  max-width: 70%;
+  margin-bottom: 15px;
 }
 
 /* 🎀 Title Styling */
 h1 {
-  font-size: 28px;
+  font-size: 26px;
   margin-bottom: 10px;
 }
 
 p {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 20px;
 }
 
-/* 🌸 Start Illustration */
-#start-illustration {
-  max-width: 250px;
-  margin-bottom: 15px;
-}
-
-/* 🎨 General Button Styling */
+/* 🌸 General Button Styling */
 button {
+  font-family: "Comfortaa", cursive;
   width: 100%;
   max-width: 400px;
-  padding: 16px;
-  font-size: 20px;
+  padding: 14px;
+  font-size: 18px;
   font-weight: bold;
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-#start-btn {
+/* 🔥 Main Buttons (Start, Get Flowers, Restart) */
+#start-btn,
+#get-flowers-btn,
+#restart-btn {
   background-color: #8b3f63;
   color: white;
 }
 
-#start-btn:hover {
+#start-btn:hover,
+#get-flowers-btn:hover,
+#restart-btn:hover {
   background-color: #6b2445;
+  transform: scale(1.05);
 }
 
-/* 🌸 Question Image */
-#question-image {
-  max-width: 250px;
-  margin-bottom: 15px;
-}
-
-/* 🌸 Answer Choices */
+/* 🌸 Choice Buttons */
 .choice-btn {
   background-color: #fdf6f9;
-  color: #5e4b56;
-  border: 2px solid #e3c3d6;
+  color: #8b3f63;
+  border: 2px solid #8b3f63;
   margin: 10px 0;
-  padding: 15px;
+  padding: 12px;
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   border-radius: 12px;
-  text-align: left;
-  transition: 0.2s ease-in-out;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .choice-btn:hover {
-  background-color: #f5e4ea;
-}
-
-.choice-btn.selected {
-  background-color: #af6ccf;
-  color: white;
+  background-color: #8b3f63;
+  color: #fdf6f9;
+  transform: scale(1.05);
 }
 
 /* 🌷 Result Image */
 #flower-image {
   width: 50%;
-  max-width: 180px;
+  max-width: 150px;
   height: auto;
   border-radius: 12px;
   display: block;
   margin-bottom: 15px;
 }
 
-/* 🌼 Form Input Fields */
+/* 🌸 Result Form Container */
 #flower-form {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 100%;
-  max-width: 450px;
+  align-items: center;
   margin-top: 15px;
 }
 
-input {
+/* 🌼 Form Input Fields */
+#flower-form input {
   width: 100%;
   padding: 12px;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 10px;
-  border: 2px solid #e3c3d6;
+  border: 2px solid #8b3f63;
   text-align: left;
-  background: #fff;
+  background: #f9f9f9;
+  transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out;
 }
 
-input:focus {
-  border-color: #af6ccf;
+#flower-form input:focus {
+  border-color: #6b2445;
   outline: none;
+  background: white;
 }
 
-/* 💌 Submit Button */
-#flower-form button {
-  background-color: #8b3f63;
-  color: white;
+/* 💌 Get Flowers Button */
+#get-flowers-btn {
+  width: 100%;
+  max-width: 350px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: center;
 }
 
-#flower-form button:hover {
-  background-color: #7a3b8c;
+#get-flowers-btn:hover {
+  background-color: #6b2445;
+  transform: scale(1.05);
+}
+
+/* 🔄 Restart Button */
+#restart-btn {
+  width: 100%;
+  max-width: 350px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: center;
+}
+
+#restart-btn:hover {
+  background-color: #6b2445;
+  transform: scale(1.05);
+}
+
+/* 📱 Mobile Responsiveness */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  #start-illustration {
+    max-width: 80%;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .choice-btn {
+    max-width: 300px;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  #flower-image {
+    max-width: 120px;
+  }
+
+  #flower-form {
+    padding: 15px;
+    max-width: 360px;
+  }
+
+  #flower-form input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  #get-flowers-btn,
+  #restart-btn {
+    max-width: 300px;
+    padding: 12px;
+  }
 }

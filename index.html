@@ -14,44 +14,59 @@
     <div class="container">
       <!-- 🌸 Start Screen -->
       <div id="start-screen" class="active">
+        <h1>Your Flower Persona Awaits!</h1>
+        <p>A weird story with a weird creature ahead...</p>
         <img
           id="start-illustration"
-          src="images/start.png"
+          src="images/start-illustration.png"
           alt="Start Illustration"
         />
-        <h1>Your Flower Persona Awaits!</h1>
-        <p>Which flower best matches your vibe?</p>
         <button id="start-btn">Take the Quiz</button>
       </div>
 
       <!-- 🌿 Quiz Section -->
       <div id="quiz-container">
-        <img id="question-image" src="" alt="Question Image" />
         <h2 id="question-text"></h2>
+        <img id="question-image" src="" alt="Question Image" />
         <div id="choices-container"></div>
       </div>
 
       <!-- 🌼 Result Section -->
       <div id="result-container">
-        <h2>The fairy transformed into a...</h2>
+        <h2 id="result-text">The fairy transformed into a...</h2>
         <img id="flower-image" src="" alt="Flower Result Image" />
-        <p>Where should your admirer send the flowers?</p>
+        <p>
+          But a wind blows him away and he's lost now. Where should he finds
+          you?
+        </p>
         <form id="flower-form">
           <input
             type="text"
             id="address"
-            placeholder="Enter your delivery location"
+            placeholder="Enter your magical receiving location"
             required
           />
           <input
             type="text"
             id="time"
-            placeholder="Morning confession? Midnight surprise?"
+            placeholder="Morning surprise? 3PM-5PM Friday?"
             required
           />
-          <button type="submit">Get Your Flowers!</button>
+          <button id="get-flowers-btn" type="submit">
+            Buzz Buzz, get your flowers!
+          </button>
         </form>
-        <p>Thanks for playing!</p>
+      </div>
+
+      <!-- 🌿 Thank You Screen (NEW) -->
+      <div id="thank-you-screen">
+        <img
+          id="start-illustration"
+          src="images/start-illustration.png"
+          alt="Thank You Illustration"
+        />
+        <h1>Thanks for playing!</h1>
+        <button id="restart-btn">Restart Quiz</button>
       </div>
     </div>
 

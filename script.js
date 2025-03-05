@@ -15,6 +15,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let questionIndex = 0;
 
+  // 🌸 Validate Phone Number
+  function validatePhoneNumber(phone) {
+    const phoneRegex = /^\+?\d{10,15}$/;
+    return phoneRegex.test(phone);
+  }
+
+  // 🌷 Handle Form Submission
+  document
+    .getElementById("flower-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let address = document.getElementById("address").value;
+      let time = document.getElementById("time").value;
+      let phoneNumber = document.getElementById("phonenumber").value;
+
+      // Validate phone number before submitting
+      if (!validatePhoneNumber(phoneNumber)) {
+        alert("Please enter a valid phone number (10-15 digits).");
+        return;
+      }
+
+      // Send data to Google Sheets or Firebase
+      sendToDatabase(address, time, phoneNumber);
+
+      // Show thank you screen
+      resultContainer.style.display = "none";
+      thankYouScreen.style.display = "flex";
+    });
+
+  // 🌷 Send Data to Google Sheets
+  function sendToDatabase(address, time, phoneNumber) {
+    fetch(
+      "https://script.google.com/macros/s/AKfycbwvES0ow9szk-KA6L43ulm-gCnqAXvhAyOPqR63Opu8aAS8ccL7mTwP09IFMFZW4AKs/exec",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          address: address,
+          time: time,
+          phoneNumber: phoneNumber,
+        }),
+      }
+    )
+      .then((response) => response.text())
+      .then((data) => console.log("Success:", data))
+      .catch((error) => console.error("Error:", error));
+  }
+
+  // 🔄 Restart Quiz
+  restartBtn.addEventListener("click", function () {
+    thankYouScreen.style.display = "none";
+    startScreen.style.display = "flex";
+    questionIndex = 0;
+  });
+
   // 🌸 Storyline-Based Quiz Questions
   const questions = [
     {

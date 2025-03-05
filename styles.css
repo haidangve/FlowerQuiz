@@ -62,6 +62,13 @@ p {
   margin-bottom: 20px;
 }
 
+/* 🌸 Question Image Styling */
+#question-image {
+  max-width: 90%;
+  height: auto;
+  margin-bottom: 20px; /* Increased space between image and question */
+}
+
 /* 🌸 General Button Styling */
 button {
   font-family: "Comfortaa", cursive;
@@ -96,8 +103,8 @@ button {
   background-color: #fdf6f9;
   color: #8b3f63;
   border: 2px solid #8b3f63;
-  margin: 10px 0;
-  padding: 12px;
+  margin: 15px 0; /* Increased spacing */
+  padding: 14px;
   width: 100%;
   max-width: 350px;
   border-radius: 12px;
@@ -113,8 +120,8 @@ button {
 
 /* 🌷 Result Image */
 #flower-image {
-  width: 50%;
-  max-width: 150px;
+  width: 60%;
+  max-width: 170px;
   height: auto;
   border-radius: 12px;
   display: block;
@@ -207,18 +214,23 @@ button {
     padding: 12px;
   }
 
+  #question-image {
+    max-width: 95%;
+    margin-bottom: 25px; /* More spacing for mobile */
+  }
+
   .choice-btn {
     max-width: 300px;
     font-size: 14px;
-    padding: 10px;
+    padding: 12px;
   }
 
   #flower-image {
-    max-width: 120px;
+    max-width: 140px;
   }
 
   #flower-form {
-    padding: 15px;
+    padding: 18px;
     max-width: 360px;
   }
 

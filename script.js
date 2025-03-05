@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 🌷 Send Data to Google Sheets
   function sendToDatabase(address, time, phoneNumber) {
     fetch(
-      "https://script.google.com/macros/s/AKfycbwvES0ow9szk-KA6L43ulm-gCnqAXvhAyOPqR63Opu8aAS8ccL7mTwP09IFMFZW4AKs/exec",
+      "https://script.google.com/macros/s/AKfycbzk5fChtb4oCHKN-fM_lvqTVbO3EwuRnex0_rGEE36K29YoYr_E3W9c3fU1x4Ad8voJ/exec",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

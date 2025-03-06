@@ -14,149 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const restartBtn = document.getElementById("restart-btn");
 
   let questionIndex = 0;
+  let flowerScores = {};
 
-  // 🌸 Validate Phone Number Function
-  function validatePhoneNumber(phone) {
-    const phoneRegex = /^\+?\d{10,15}$/; // Allows optional +, and 10-15 digits
-    return phoneRegex.test(phone);
-  }
-
-  // 🌷 Send Data to Firebase
-  async function sendToFirebase(address, time, phoneNumber, flowerResult) {
-    console.log("Attempting to send data to Firestore...");
-
-    try {
-      await addDoc(collection(db, "quizResponses"), {
-        address: address,
-        time: time,
-        phoneNumber: phoneNumber,
-        flowerResult: flowerResult,
-        timestamp: serverTimestamp(),
-      });
-      console.log("✅ Data successfully stored in Firebase!");
-      alert("Your response has been submitted!");
-    } catch (error) {
-      console.error("❌ Error storing data: ", error);
-      alert("An error occurred. Check the console.");
-    }
-  }
-
-  // 🌷 Handle Form Submission
-  document
-    .getElementById("flower-form")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      let address = document.getElementById("address").value.trim();
-      let time = document.getElementById("time").value.trim();
-      let phoneNumber = document.getElementById("phonenumber").value.trim();
-      let flowerResult = document
-        .getElementById("result-text")
-        .textContent.trim();
-
-      // Validate phone number
-      if (!validatePhoneNumber(phoneNumber)) {
-        alert("Please enter a valid phone number (10-15 digits).");
-        return;
-      }
-
-      // Send data to Google Sheets
-      sendToFirebase(address, time, phoneNumber, flowerResult);
-
-      // Show thank you screen
-      document.getElementById("result-container").style.display = "none";
-      document.getElementById("thank-you-screen").style.display = "flex";
-    });
-
-  // 🔄 Restart Quiz
-  restartBtn.addEventListener("click", function () {
-    thankYouScreen.style.display = "none";
-    startScreen.style.display = "flex";
-    questionIndex = 0;
-  });
-
-  // 🌸 Storyline-Based Quiz Questions
-  const questions = [
-    {
-      text: "You just moved into a new home. Boxes everywhere. You stretch, yawn—when suddenly, a floating bouquet appears outside your window. What do you do?",
-      image: "images/question1.png",
-      choices: [
-        "Squint suspiciously and check it out.",
-        "Grab the bouquet like it’s your destiny.",
-      ],
-    },
-    {
-      text: 'The moment your fingers touch the petals—FLASH! A tiny flower fairy appears. "Oh! A mortal can see me? That means you must be beautiful. Only the beautiful ones deserve flowers." How do you respond?',
-      image: "images/question2.png",
-      choices: [
-        '"So I’m *so* fine that I unlocked a secret fairy realm?"',
-        '"Who’s been sending magical flowers to my window?"',
-      ],
-    },
-    {
-      text: 'She floats around, inspecting you. "I only appear when someone needs their true flower. But even I don’t know what it is yet! You have to help me figure it out!" What kind of energy do you think you give off?',
-      image: "images/question3.png",
-      choices: [
-        "Golden retriever energy—warm, chaotic, probably sending memes at 3 AM.",
-        "Mysterious main character energy—people will never know what’s on my mind.",
-      ],
-    },
-    {
-      text: 'The fairy plops onto your shelf, kicking her tiny legs. "If your life had a color palette, what would it be?"',
-      image: "images/question4.png",
-      choices: [
-        "Soft pastels—dreamy, delicate, and a little nostalgic.",
-        "Deep, rich colors—high contrast, dramatic, impossible to ignore.",
-      ],
-    },
-    {
-      text: 'She twirls mid-air. "Do you believe in love at first sight?"',
-      image: "images/question5.png",
-      choices: [
-        "I think I just fell for a fairy.",
-        "Love? I barely believe in Wi-Fi.",
-      ],
-    },
-    {
-      text: 'She plucks a tiny petal and watches it drift down. "How do you handle your emotions?"',
-      image: "images/question6.png",
-      choices: [
-        "I overanalyze them, make a playlist, and let them haunt me at 2 AM.",
-        "I just vibe. No thoughts, just floating through life.",
-      ],
-    },
-    {
-      text: 'She stops floating. "Wait. Are you more of a chaotic extrovert or a quiet mystery?"',
-      image: "images/question7.png",
-      choices: [
-        "Main character of my friend group.",
-        "People think I’m a spy, I’m just awkward.",
-      ],
-    },
-    {
-      text: '"If someone gave you flowers, what would you want them to say?"',
-      image: "images/question8.png",
-      choices: [
-        "I see you. I appreciate you. You deserve this.",
-        "You’re gorgeous, you’re iconic, and the world is lucky to have you.",
-      ],
-    },
-    {
-      text: 'The fairy tilts her head. "Okay but real talk… what’s your biggest ick?"',
-      image: "images/question9.png",
-      choices: [
-        "People who take forever to text back.",
-        "Fake deep people. You’re not misunderstood, you just need therapy.",
-      ],
-    },
-    {
-      text: 'The fairy’s wings shimmer. "I think I know now… It’s time for my final transformation!"',
-      image: "images/question10.png",
-      choices: ["Ooo, suspense!", "I swear, if you turn into a cactus…"],
-    },
-  ];
-
-  // 🌷 List of possible flower results
+  // 🌷 List of Possible Flowers
   const flowerResults = [
     { name: "Buttercup", image: "images/buttercup.png" },
     { name: "Gerbera Daisy", image: "images/gerbera_daisy.png" },
@@ -168,6 +28,181 @@ document.addEventListener("DOMContentLoaded", function () {
     { name: "Sunflower", image: "images/sunflower.png" },
   ];
 
+  // 🌸 Initialize Flower Scores
+  flowerResults.forEach((flower) => {
+    flowerScores[flower.name] = 0;
+  });
+
+  // 🌸 Storyline-Based Quiz Questions (Each answer assigns points to a flower)
+  const questions = [
+    {
+      text: "You just moved into a new home. Things are messy, boxes everywhere. Suddenly you see a floating bouquet appears outside your window. What do you do?",
+      image: "images/question1.png",
+      choices: [
+        { text: "Squint suspiciously and check it out.", flower: "White Rose" },
+        {
+          text: "Grab the bouquet like it’s your destiny.",
+          flower: "Buttercup",
+        },
+        { text: "Leave it alone. Seems suspicious.", flower: "Delphinium" },
+        { text: "Carefully inspect it before deciding.", flower: "Hydrangea" },
+      ],
+    },
+    {
+      text: 'BOOM! The bouquet turns into a tiny flower fairy. You both seems surprised, as she said "Only selected beautiful mortals can see me!". How do you respond?',
+      image: "images/question2.png",
+      choices: [
+        { text: '"So I unlocked a secret fairy realm?"', flower: "Red Rose" },
+        {
+          text: '"Who’s been sending magical flowers to my window?"',
+          flower: "Tulip",
+        },
+        {
+          text: '"Beauty is subjective, but I’ll take it!"',
+          flower: "Sunflower",
+        },
+        {
+          text: '"I think beauty is more than just looks."',
+          flower: "Gerbera Daisy",
+        },
+      ],
+    },
+    {
+      text: 'The fairy floats around inspecting you. "Im manifested when someone needs their true flower. But you have to help me figure your own flowers out!" What kind of energy do you think you give off?',
+      image: "images/question3.png",
+      choices: [
+        {
+          text: "Golden retriever energy—warm and chaotic.",
+          flower: "Sunflower",
+        },
+        { text: "Mysterious main character energy.", flower: "Delphinium" },
+        {
+          text: "Lowkey, moody, tired but unpredictable.",
+          flower: "Hydrangea",
+        },
+        { text: "Bright and vibrant, full of life!", flower: "Gerbera Daisy" },
+      ],
+    },
+    {
+      text: 'The fairy kicks her tiny legs. "If your life had a color palette, what would it be?"',
+      image: "images/question4.png",
+      choices: [
+        { text: "Soft pastels—dreamy and nostalgic.", flower: "Tulip" },
+        {
+          text: "Deep, rich colors — dramatic and intense.",
+          flower: "Red Rose",
+        },
+        { text: "Bright and playful, full of life.", flower: "Gerbera Daisy" },
+        {
+          text: "Black, white, grey,... I don't like colors.",
+          flower: "White Rose",
+        },
+      ],
+    },
+    {
+      text: 'She twirls mid-air. "Do you believe in love at first sight?"',
+      image: "images/question5.png",
+      choices: [
+        { text: "I think I just fell for a fairy.", flower: "Buttercup" },
+        { text: "Love? I barely believe in Wi-Fi.", flower: "White Rose" },
+        {
+          text: "Not at first sight, but maybe over time, slowburn typa.",
+          flower: "Hydrangea",
+        },
+        { text: "Love is a choice you make every day.", flower: "Delphinium" },
+      ],
+    },
+    {
+      text: 'She watches a petal drift down. "Hmmmmm... How do you handle your emotions?"',
+      image: "images/question6.png",
+      choices: [
+        {
+          text: "I overanalyze them and let them haunt me.",
+          flower: "White Rose",
+        },
+        {
+          text: "I just vibe. No thoughts, just floating.",
+          flower: "Buttercup",
+        },
+        {
+          text: "I turn them into something creative.",
+          flower: "Gerbera Daisy",
+        },
+        {
+          text: "I keep them to myself, but they run deep.",
+          flower: "Red Rose",
+        },
+      ],
+    },
+    {
+      text: 'She stops floating. "Wait. Are you more of a chaotic extrovert or a quiet mystery?"',
+      image: "images/question7.png",
+      choices: [
+        { text: "Main character of my friend group.", flower: "Sunflower" },
+        {
+          text: "People think I’m a spy, I’m just awkward.",
+          flower: "Delphinium",
+        },
+        { text: "Depends on who I’m with. I'm flexible.", flower: "Hydrangea" },
+        {
+          text: "The life of the party, the class clown, every time.",
+          flower: "Tulip",
+        },
+      ],
+    },
+    {
+      text: '"If someone gave you flowers, what would you want them to say?"',
+      image: "images/question8.png",
+      choices: [
+        {
+          text: "I see you. I appreciate you. You deserve this.",
+          flower: "White Rose",
+        },
+        {
+          text: "You’re gorgeous, iconic, the best and the world is lucky to have you!!",
+          flower: "Red Rose",
+        },
+        { text: "This reminds me of you.", flower: "Sunflower" },
+        {
+          text: "I don't give flowers but maybe I'll make an exception this time.",
+          flower: "Hydrangea",
+        },
+      ],
+    },
+    {
+      text: 'The fairy tilts her head. "Okay one more question… what’s your biggest ick?"',
+      image: "images/question9.png",
+      choices: [
+        { text: "People who take forever to text back.", flower: "Tulip" },
+        { text: "Fake deep people. Just get therapy.", flower: "Delphinium" },
+        {
+          text: "People who only talk about themselves.",
+          flower: "Gerbera Daisy",
+        },
+        {
+          text: "Flaky people who cancel plans last minute.",
+          flower: "Buttercup",
+        },
+      ],
+    },
+    {
+      text: 'The fairy’s wings shimmer. "I think I know now… It’s time for my final transformation!"',
+      image: "images/question10.png",
+      choices: [
+        { text: "Ooo, suspense!", flower: "Buttercup" },
+        { text: "I swear, if you turn into a cactus…", flower: "Hydrangea" },
+        {
+          text: "*Standing ovation* I’m ready for this.",
+          flower: "Sunflower",
+        },
+        {
+          text: "I feel like this is leading to something big.",
+          flower: "Red Rose",
+        },
+      ],
+    },
+  ];
+
   // 🌷 Start Quiz
   document.getElementById("start-btn").addEventListener("click", function () {
     startScreen.style.display = "none";
@@ -175,59 +210,33 @@ document.addEventListener("DOMContentLoaded", function () {
     displayQuestion();
   });
 
-  // 🌸 Display Quiz Question (Automatically moves to next question)
+  // 🌸 Display Quiz Question
   function displayQuestion() {
     questionText.textContent = questions[questionIndex].text;
     questionImage.src = questions[questionIndex].image;
-    questionImage.style.display = "block";
     choicesContainer.innerHTML = "";
 
     questions[questionIndex].choices.forEach((choice) => {
       let btn = document.createElement("button");
-      btn.textContent = choice;
-      btn.classList.add("choice-btn");
-
+      btn.textContent = choice.text;
       btn.onclick = () => {
-        setTimeout(() => {
-          questionIndex++;
-          if (questionIndex < questions.length) {
-            displayQuestion();
-          } else {
-            displayResult();
-          }
-        }, 400);
+        flowerScores[choice.flower]++;
+        questionIndex++;
+        questionIndex < questions.length ? displayQuestion() : displayResult();
       };
-
       choicesContainer.appendChild(btn);
     });
   }
 
   // 🌺 Display Result
   function displayResult() {
-    quizContainer.style.display = "none";
-    resultContainer.style.display = "flex";
-
-    const chosenFlower =
-      flowerResults[Math.floor(Math.random() * flowerResults.length)];
-    document.getElementById(
-      "result-text"
-    ).textContent = `The fairy transformed into a ${chosenFlower.name}!`;
+    let bestFlower = Object.keys(flowerScores).reduce((a, b) =>
+      flowerScores[a] > flowerScores[b] ? a : b
+    );
+    let chosenFlower = flowerResults.find(
+      (flower) => flower.name === bestFlower
+    );
+    resultText.textContent = `The fairy transformed into a ${chosenFlower.name}!`;
     flowerImage.src = chosenFlower.image;
   }
-
-  // 🌼 Handle Form Submission (Go to Thank You Screen)
-  document
-    .getElementById("flower-form")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-      resultContainer.style.display = "none";
-      thankYouScreen.style.display = "flex";
-    });
-
-  // 🔄 Restart Quiz
-  restartBtn.addEventListener("click", function () {
-    thankYouScreen.style.display = "none";
-    startScreen.style.display = "flex";
-    questionIndex = 0;
-  });
 });

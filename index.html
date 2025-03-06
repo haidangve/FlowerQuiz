@@ -74,7 +74,40 @@
         <button id="restart-btn">Restart Quiz</button>
       </div>
     </div>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        serverTimestamp,
+        getAnalytics,
+      } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
 
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDhk4roTs5aHjdgn2AhwlsBUe6Xz-55GaQ",
+        authDomain: "flowerquiz-34633.firebaseapp.com",
+        projectId: "flowerquiz-34633",
+        storageBucket: "flowerquiz-34633.firebasestorage.app",
+        messagingSenderId: "291230918472",
+        appId: "1:291230918472:web:3d373db8228e6c58f4757d",
+        measurementId: "G-L3X2J0CZGX",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      window.db = db;
+      window.addDoc = addDoc;
+      window.serverTimestamp = serverTimestamp;
+      window.collection = collection;
+    </script>
     <script src="script.js"></script>
   </body>
 </html>

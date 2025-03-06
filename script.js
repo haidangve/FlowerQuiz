@@ -15,24 +15,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let questionIndex = 0;
 
-  // 🌷 Send Data to Google Sheets
-  function sendToDatabase(address, time, phoneNumber, flowerResult) {
-    fetch(
-      "https://script.google.com/macros/s/AKfycbw3nFsMFZ78Mtl9m1m5EGbws0CzaC6ki3T0FXJGwKZWZRtnbjFEat4cvSaiTC3NV-pP/exec",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          address: address,
-          time: time,
-          phoneNumber: phoneNumber,
-          flowerResult: flowerResult,
-        }),
-      }
-    )
-      .then((response) => response.text())
-      .then((data) => console.log("Success:", data))
-      .catch((error) => console.error("Error:", error));
+  // 🌷 Send Data to Firebase
+  function sendToFirebase(address, time, phoneNumber, flowerResult) {
+    db.collection("quizResponses")
+      .add({
+        address: address,
+        time: time,
+        phoneNumber: phoneNumber,
+        flowerResult: flowerResult,
+        timestamp: serverTimestamp(),
+      })
+      .then(() => {
+        console.log("Data successfully stored in Firebase!");
+        alert("Your response has been submitted!");
+      })
+      .catch((error) => {
+        console.error("Error storing data: ", error);
+      });
   }
 
   // 🌷 Handle Form Submission
@@ -44,7 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
       let address = document.getElementById("address").value.trim();
       let time = document.getElementById("time").value.trim();
       let phoneNumber = document.getElementById("phonenumber").value.trim();
-      let flowerResult = document.getElementById("result-text").textContent;
+      let flowerResult = document
+        .getElementById("result-text")
+        .textContent.trim();
 
       // Validate phone number
       if (!validatePhoneNumber(phoneNumber)) {
@@ -53,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Send data to Google Sheets
-      sendToDatabase(address, time, phoneNumber, flowerResult);
+      sendToFirebase(address, time, phoneNumber, flowerResult);
 
       // Show thank you screen
       document.getElementById("result-container").style.display = "none";

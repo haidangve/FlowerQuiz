@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
     flowerScores[flower.name] = 0;
   });
 
-  // 🌸 Storyline-Based Quiz Questions (Each answer assigns points to a flower)
+  // 🌸 Storyline-Based Quiz Questions
   const questions = [
     {
-      text: "You just moved into a new home. Things are messy, boxes everywhere. Suddenly you see a floating bouquet appears outside your window. What do you do?",
+      text: "You just moved into a new home. Things are messy, boxes everywhere. Suddenly, a floating bouquet appears outside your window. What do you do?",
       image: "images/question1.png",
       choices: [
         { text: "Squint suspiciously and check it out.", flower: "White Rose" },
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ],
     },
     {
-      text: 'BOOM! The bouquet turns into a tiny flower fairy. You both seems surprised, as she said "Only selected beautiful mortals can see me!". How do you respond?',
+      text: 'BOOM! The bouquet turns into a tiny flower fairy. "Only selected beautiful mortals can see me!" How do you respond?',
       image: "images/question2.png",
       choices: [
         { text: '"So I unlocked a secret fairy realm?"', flower: "Red Rose" },
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ],
     },
     {
-      text: 'The fairy floats around inspecting you. "Im manifested when someone needs their true flower. But you have to help me figure your own flowers out!" What kind of energy do you think you give off?',
+      text: 'The fairy inspects you. "I manifest when someone needs their true flower. But you have to help me figure your flower out!" What kind of energy do you give off?',
       image: "images/question3.png",
       choices: [
         {
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         { text: "Bright and playful, full of life.", flower: "Gerbera Daisy" },
         {
-          text: "Black, white, grey,... I don't like colors.",
+          text: "Black, white, grey... I don't like colors.",
           flower: "White Rose",
         },
       ],
@@ -113,82 +113,32 @@ document.addEventListener("DOMContentLoaded", function () {
       ],
     },
     {
-      text: 'She watches a petal drift down. "Hmmmmm... How do you handle your emotions?"',
-      image: "images/question6.png",
-      choices: [
-        {
-          text: "I overanalyze them and let them haunt me.",
-          flower: "White Rose",
-        },
-        {
-          text: "I just vibe. No thoughts, just floating.",
-          flower: "Buttercup",
-        },
-        {
-          text: "I turn them into something creative.",
-          flower: "Gerbera Daisy",
-        },
-        {
-          text: "I keep them to myself, but they run deep.",
-          flower: "Red Rose",
-        },
-      ],
-    },
-    {
       text: 'She stops floating. "What kind of art style inspires you the most?"',
       image: "images/question7.png",
       choices: [
         {
-          text: "Soft, dreamy, focus on movements and moods. Something like Impressionism Art.",
+          text: "Soft, dreamy, movement-focused art. Impressionism.",
           flower: "Tulip",
         },
+        { text: "Bold, vibrant, multimedia pop art.", flower: "Sunflower" },
         {
-          text: "Bold, vibrant, multimedia pop art. I'm the type to hang an Andy Warhol piece in my bedroom.",
-          flower: "Sunflower",
-        },
-        {
-          text: "Something that plays with my perception. Abstract, Cubism, Picasso,... ",
+          text: "Abstract, surrealism, mind-bending art.",
           flower: "Hydrangea",
         },
         {
-          text: "I like art that tells a story, like Renaissance or Baroque paintings.",
+          text: "I like art that tells a story. Renaissance, Baroque.",
           flower: "Delphinium",
         },
       ],
     },
     {
-      text: '"If someone gave you flowers, what would you want them to say?"',
-      image: "images/question8.png",
-      choices: [
-        {
-          text: "I see you. I appreciate you. You deserve this.",
-          flower: "White Rose",
-        },
-        {
-          text: "You’re gorgeous, iconic, the best and the world is lucky to have you!!",
-          flower: "Red Rose",
-        },
-        { text: "This reminds me of you.", flower: "Sunflower" },
-        {
-          text: "I don't give flowers but maybe I'll make an exception this time.",
-          flower: "Hydrangea",
-        },
-      ],
-    },
-    {
-      text: 'The fairy tilts her head. "Last question: What is your spirit animal?"',
+      text: 'The fairy tilts her head. "What is your spirit animal?"',
       image: "images/question9.png",
       choices: [
         { text: "A gentle and wise owl.", flower: "Delphinium" },
         { text: "A playful and social dolphin.", flower: "Buttercup" },
-        {
-          text: "A strong, independent wolf.",
-          flower: "Red Rose",
-        },
-        {
-          text: "A quirky and adorable penguin.",
-          flower: "Tulip",
-        },
+        { text: "A strong, independent wolf.", flower: "Red Rose" },
+        { text: "A quirky and adorable penguin.", flower: "Tulip" },
       ],
     },
     {
@@ -197,10 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
       choices: [
         { text: "Ooo, suspense!", flower: "Buttercup" },
         { text: "I swear, if you turn into a cactus…", flower: "Hydrangea" },
-        {
-          text: "*Standing ovation* I’m ready for this.",
-          flower: "Sunflower",
-        },
+        { text: "*Standing ovation* I’m ready for this.", flower: "Sunflower" },
         {
           text: "I feel like this is leading to something big.",
           flower: "Red Rose",
@@ -216,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
     displayQuestion();
   });
 
-  // 🌸 Display Quiz Question
+  // 🌸 Display Quiz Question (Ensuring final question leads to result)
   function displayQuestion() {
     questionText.textContent = questions[questionIndex].text;
     questionImage.src = questions[questionIndex].image;
@@ -225,10 +172,15 @@ document.addEventListener("DOMContentLoaded", function () {
     questions[questionIndex].choices.forEach((choice) => {
       let btn = document.createElement("button");
       btn.textContent = choice.text;
+      btn.classList.add("choice-btn"); // Apply the button styling
       btn.onclick = () => {
         flowerScores[choice.flower]++;
         questionIndex++;
-        questionIndex < questions.length ? displayQuestion() : displayResult();
+        if (questionIndex < questions.length) {
+          displayQuestion();
+        } else {
+          setTimeout(displayResult, 300); // Ensures transition
+        }
       };
       choicesContainer.appendChild(btn);
     });
@@ -236,6 +188,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 🌺 Display Result
   function displayResult() {
+    quizContainer.style.display = "none";
+    resultContainer.style.display = "flex";
+
     let bestFlower = Object.keys(flowerScores).reduce((a, b) =>
       flowerScores[a] > flowerScores[b] ? a : b
     );

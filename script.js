@@ -135,18 +135,24 @@ document.addEventListener("DOMContentLoaded", function () {
       ],
     },
     {
-      text: 'She stops floating. "Wait. Are you more of a chaotic extrovert or a quiet mystery?"',
+      text: 'She stops floating. "What kind of art style inspires you the most?"',
       image: "images/question7.png",
       choices: [
-        { text: "Main character of my friend group.", flower: "Sunflower" },
         {
-          text: "People think I’m a spy, I’m just awkward.",
-          flower: "Delphinium",
-        },
-        { text: "Depends on who I’m with. I'm flexible.", flower: "Hydrangea" },
-        {
-          text: "The life of the party, the class clown, every time.",
+          text: "Soft, dreamy, focus on movements and moods. Something like Impressionism Art.",
           flower: "Tulip",
+        },
+        {
+          text: "Bold, vibrant, multimedia pop art. I'm the type to hang an Andy Warhol piece in my bedroom.",
+          flower: "Sunflower",
+        },
+        {
+          text: "Something that plays with my perception. Abstract, Cubism, Picasso,... ",
+          flower: "Hydrangea",
+        },
+        {
+          text: "I like art that tells a story, like Renaissance or Baroque paintings.",
+          flower: "Delphinium",
         },
       ],
     },
@@ -170,18 +176,18 @@ document.addEventListener("DOMContentLoaded", function () {
       ],
     },
     {
-      text: 'The fairy tilts her head. "Okay one more question… what’s your biggest ick?"',
+      text: 'The fairy tilts her head. "Last question: What is your spirit animal?"',
       image: "images/question9.png",
       choices: [
-        { text: "People who take forever to text back.", flower: "Tulip" },
-        { text: "Fake deep people. Just get therapy.", flower: "Delphinium" },
+        { text: "A gentle and wise owl.", flower: "Delphinium" },
+        { text: "A playful and social dolphin.", flower: "Buttercup" },
         {
-          text: "People who only talk about themselves.",
-          flower: "Gerbera Daisy",
+          text: "A strong, independent wolf.",
+          flower: "Red Rose",
         },
         {
-          text: "Flaky people who cancel plans last minute.",
-          flower: "Buttercup",
+          text: "A quirky and adorable penguin.",
+          flower: "Tulip",
         },
       ],
     },

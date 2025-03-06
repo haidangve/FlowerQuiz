@@ -15,6 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let questionIndex = 0;
 
+  // 🌸 Validate Phone Number Function
+  function validatePhoneNumber(phone) {
+    const phoneRegex = /^\+?\d{10,15}$/; // Allows optional +, and 10-15 digits
+    return phoneRegex.test(phone);
+  }
+
   // 🌷 Send Data to Firebase
   async function sendToFirebase(address, time, phoneNumber, flowerResult) {
     console.log("Attempting to send data to Firestore...");
@@ -68,12 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
     startScreen.style.display = "flex";
     questionIndex = 0;
   });
-
-  // 🌸 Validate Phone Number Function
-  function validatePhoneNumber(phone) {
-    const phoneRegex = /^\+?\d{10,15}$/; // Allows optional +, and 10-15 digits
-    return phoneRegex.test(phone);
-  }
 
   // 🌸 Storyline-Based Quiz Questions
   const questions = [

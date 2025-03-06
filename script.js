@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => {
         console.error("Error storing data: ", error);
+        alert("An error occurred. Please try again.");
       });
   }
 

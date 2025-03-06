@@ -195,6 +195,28 @@ button {
   transform: scale(1.05);
 }
 
+/* 🌼 Style the Textarea */
+#flower-form textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 2px solid #8b3f63;
+  text-align: left;
+  background: #f9f9f9;
+  transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out;
+  resize: none; /* Prevent resizing */
+  font-family: "Comfortaa", cursive;
+  min-height: 60px; /* Match input height */
+}
+
+/* 🌸 Textarea Focus Effect */
+#flower-form textarea:focus {
+  border-color: #6b2445;
+  outline: none;
+  background: white;
+}
+
 /* 📱 Mobile Responsiveness */
 @media (max-width: 480px) {
   h1 {

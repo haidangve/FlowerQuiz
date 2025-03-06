@@ -16,6 +16,42 @@ document.addEventListener("DOMContentLoaded", function () {
   let questionIndex = 0;
   let flowerScores = {};
 
+  // ✅ Validate Phone Number Function
+  function validatePhoneNumber(phone) {
+    const phoneRegex = /^\+?\d{10,15}$/; // Allows optional +, and 10-15 digits
+    return phoneRegex.test(phone);
+  }
+
+  async function sendToFirebase(
+    address,
+    time,
+    phoneNumber,
+    flowerResult,
+    userMessage
+  ) {
+    console.log("📤 Sending data to Firestore...");
+
+    try {
+      await addDoc(collection(db, "quizResponses"), {
+        address,
+        time,
+        phoneNumber,
+        flowerResult,
+        message: userMessage, // 🆕 Stores user message
+        timestamp: serverTimestamp(),
+      });
+      console.log("✅ Data successfully stored in Firebase!");
+      alert("Your response has been submitted!");
+    } catch (error) {
+      console.error("❌ Error storing data: ", error);
+      alert("An error occurred. Check the console.");
+    }
+
+    // Show Thank You Screen
+    resultContainer.style.display = "none";
+    thankYouScreen.style.display = "flex";
+  }
+
   // 🌷 List of Possible Flowers
   const flowerResults = [
     { name: "Buttercup", image: "images/buttercup.png" },
@@ -132,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ],
     },
     {
-      text: 'The fairy tilts her head. "What is your spirit animal?"',
+      text: 'The fairy tilts her head. "Which spirit animals below describe you the best?"',
       image: "images/question9.png",
       choices: [
         { text: "A gentle and wise owl.", flower: "Delphinium" },
@@ -200,4 +236,35 @@ document.addEventListener("DOMContentLoaded", function () {
     resultText.textContent = `The fairy transformed into a ${chosenFlower.name}!`;
     flowerImage.src = chosenFlower.image;
   }
+
+  // ✅ Handle Form Submission
+  document
+    .getElementById("flower-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let address = document.getElementById("address").value.trim();
+      let time = document.getElementById("time").value.trim();
+      let phoneNumber = document.getElementById("phonenumber").value.trim();
+      let messageElement = document.getElementById("message"); // ✅ Get the textarea
+      let userMessage = messageElement ? messageElement.value.trim() : ""; // ✅ Extract value safely
+      let flowerResult = document
+        .getElementById("result-text")
+        .textContent.trim();
+
+      if (!validatePhoneNumber(phoneNumber)) {
+        alert("Please enter a valid phone number (10-15 digits).");
+        return;
+      }
+
+      sendToFirebase(address, time, phoneNumber, flowerResult, userMessage);
+    });
+
+  // ✅ Restart Quiz
+  restartBtn.addEventListener("click", function () {
+    thankYouScreen.style.display = "none";
+    startScreen.style.display = "flex";
+    questionIndex = 0;
+    flowerScores = {};
+  });
 });

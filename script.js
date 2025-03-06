@@ -15,34 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let questionIndex = 0;
 
-  // 🌷 Handle Form Submission
-  document
-    .getElementById("flower-form")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      let address = document.getElementById("address").value;
-      let time = document.getElementById("time").value;
-      let phoneNumber = document.getElementById("phonenumber").value;
-
-      // Validate phone number before submitting
-      if (!validatePhoneNumber(phoneNumber)) {
-        alert("Please enter a valid phone number (10-15 digits).");
-        return;
-      }
-
-      // Send data to Google Sheets
-      sendToDatabase(address, time, phoneNumber);
-
-      // Show thank you screen
-      resultContainer.style.display = "none";
-      thankYouScreen.style.display = "flex";
-    });
-
   // 🌷 Send Data to Google Sheets
-  function sendToDatabase(address, time, phoneNumber) {
+  function sendToDatabase(address, time, phoneNumber, flowerResult) {
     fetch(
-      "https://script.google.com/macros/s/AKfycbzWTYtujx_cSb6PxXtkbiXEyYPg-svZGjwD9TzZ7v_M19x94fSxQ4jHFsk7jfMq1YQx/exec",
+      "https://script.google.com/macros/s/AKfycbw3nFsMFZ78Mtl9m1m5EGbws0CzaC6ki3T0FXJGwKZWZRtnbjFEat4cvSaiTC3NV-pP/exec",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -50,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
           address: address,
           time: time,
           phoneNumber: phoneNumber,
+          flowerResult: flowerResult,
         }),
       }
     )
@@ -58,11 +35,30 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => console.error("Error:", error));
   }
 
-  // 🌸 Validate Phone Number
-  function validatePhoneNumber(phone) {
-    const phoneRegex = /^\+?\d{10,15}$/;
-    return phoneRegex.test(phone);
-  }
+  // 🌷 Handle Form Submission
+  document
+    .getElementById("flower-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      let address = document.getElementById("address").value.trim();
+      let time = document.getElementById("time").value.trim();
+      let phoneNumber = document.getElementById("phonenumber").value.trim();
+      let flowerResult = document.getElementById("result-text").textContent;
+
+      // Validate phone number
+      if (!validatePhoneNumber(phoneNumber)) {
+        alert("Please enter a valid phone number (10-15 digits).");
+        return;
+      }
+
+      // Send data to Google Sheets
+      sendToDatabase(address, time, phoneNumber, flowerResult);
+
+      // Show thank you screen
+      document.getElementById("result-container").style.display = "none";
+      document.getElementById("thank-you-screen").style.display = "flex";
+    });
 
   // 🔄 Restart Quiz
   restartBtn.addEventListener("click", function () {
